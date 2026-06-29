@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whois Lookup | MyIP - 域名及 IP 注册所有权查询工具</title>
+  <meta name="description" content="输入任何域名或 IP 地址，快速查询其 WHOIS 信息，包含注册商、注册时间、过期时间、DNS 服务器及注册人状态。支持原生 RDAP 协议解析。">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/src/css/main.css">
+  <link rel="stylesheet" href="/src/css/tools.css">
+  <link rel="stylesheet" href="/src/css/map.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <div class="container nav-container">
+      <a href="/" class="logo">
+        ip<span>.me</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">我的 IP</a></li>
+          <li><a href="/lookup.html">IP 查询</a></li>
+          <li><a href="/dns.html">DNS 查询</a></li>
+          <li><a href="/whois.html" class="active">Whois 查询</a></li>
+          <li><a href="/about.html">关于</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <h1>Whois 注册信息查询</h1>
+    <p style="margin-bottom: 2rem;">查询指定域名或 IP 的注册所有权、注册商、创建与到期时间等 Whois 原始记录。底层采用现代 RDAP 协议进行实时获取。</p>
+
+    <!-- Search Section -->
+    <div class="tool-search-container">
+      <form id="whois-form" onsubmit="return false;">
+        <div class="tool-search-box">
+          <input 
+            type="text" 
+            id="whois-query" 
+            class="form-control" 
+            placeholder="请输入域名 (如: google.com) 或 IP 地址" 
+            required 
+            autofocus
+            autocomplete="off"
+          />
+          <button type="submit" class="btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            查询
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Results wrapper -->
+    <div id="whois-results-wrapper" style="display: none; position: relative; min-height: 200px;">
+      <div id="whois-loader" class="loader-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>正在获取 Whois 记录中...</p>
+      </div>
+
+      <!-- Core Info Card -->
+      <div class="card-glass info-card" style="margin-bottom: 1.5rem;">
+        <h3>基本所有权摘要</h3>
+        <table class="info-table" style="text-align: left;">
+          <tbody>
+            <tr>
+              <th style="width: 30%; text-align: left;">域名 / 资源</th>
+              <td id="whois-val-name" style="text-align: right;">...</td>
+            </tr>
+            <tr>
+              <th style="width: 30%; text-align: left;">注册商 (Registrar)</th>
+              <td id="whois-val-registrar" style="text-align: right;">...</td>
+            </tr>
+            <tr>
+              <th style="width: 30%; text-align: left;">创建时间 (Created At)</th>
+              <td id="whois-val-created" style="text-align: right;">...</td>
+            </tr>
+            <tr>
+              <th style="width: 30%; text-align: left;">更新时间 (Updated At)</th>
+              <td id="whois-val-updated" style="text-align: right;">...</td>
+            </tr>
+            <tr>
+              <th style="width: 30%; text-align: left;">过期时间 (Expires At)</th>
+              <td id="whois-val-expires" style="text-align: right;">...</td>
+            </tr>
+            <tr>
+              <th style="width: 30%; text-align: left;">DNS 服务器</th>
+              <td id="whois-val-ns" style="text-align: right;">...</td>
+            </tr>
+            <tr>
+              <th style="width: 30%; text-align: left;">状态 (Status)</th>
+              <td id="whois-val-status" style="text-align: right;">...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Raw Log Card -->
+      <div class="card-glass raw-whois-card">
+        <div class="raw-whois-title">
+          <h3>原始 RDAP / WHOIS 记录</h3>
+          <button id="btn-copy-raw" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">一键复制</button>
+        </div>
+        <pre id="raw-whois-content" class="raw-whois-container">加载中...</pre>
+      </div>
+    </div>
+    
+    <div id="whois-empty" style="text-align: center; padding: 4rem 0; color: var(--text-muted);" class="card-glass">
+      暂无查询结果，请在上方输入需要查询的域名或 IP 地址并点击“查询”按钮。
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div>
+        &copy; 2026 ip.me. 保留所有权利。
+      </div>
+      <div class="footer-links">
+        <a href="/">我的 IP</a>
+        <a href="/lookup.html">IP 查询</a>
+        <a href="/dns.html">DNS Lookup</a>
+        <a href="/whois.html">Whois</a>
+        <a href="/about.html">关于</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <span id="toast-message">复制成功</span>
+  </div>
+
+  <!-- JS Controller -->
+  <script type="module" src="/src/js/whois.js"></script>
+</body>
+</html>

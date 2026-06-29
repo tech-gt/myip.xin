@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | MyIP - 关于我们与隐私声明</title>
+  <meta name="description" content="了解 MyIP.me 的工作原理、数据来源以及我们对您隐私的承诺。完全开源，无广告，不保存任何查询日志。">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/src/css/main.css">
+  <style>
+    .faq-section {
+      margin-top: 2rem;
+    }
+    .faq-item {
+      margin-bottom: 1.5rem;
+    }
+    .faq-item h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .faq-item h3::before {
+      content: "?";
+      display: inline-flex;
+      width: 24px;
+      height: 24px;
+      background: var(--primary-glow);
+      color: var(--primary);
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .faq-item p {
+      padding-left: 2rem;
+    }
+    .about-lead {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <div class="container nav-container">
+      <a href="/" class="logo">
+        ip<span>.me</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">我的 IP</a></li>
+          <li><a href="/lookup.html">IP 查询</a></li>
+          <li><a href="/dns.html">DNS 查询</a></li>
+          <li><a href="/whois.html">Whois 查询</a></li>
+          <li><a href="/about.html" class="active">关于</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <h1>关于 ip.me (MyIP)</h1>
+    <p class="about-lead">ip.me 是一个现代、极速且保护隐私的公网 IP 地址和网络诊断工具网站。我们致力于为您提供最干净、最高效的查询体验。</p>
+
+    <div class="card-glass faq-section">
+      <h2>常见问题与解答 (FAQ)</h2>
+      <div style="margin-top: 1.5rem;">
+        
+        <div class="faq-item">
+          <h3>本站是如何检测我的 IP 地址的？</h3>
+          <p>当您访问本站时，我们的边缘计算服务器 (Cloudflare Pages Function / Worker) 会读取您请求头中的 <code>CF-Connecting-IP</code> 字段。该值由网络交换的边缘节点直接赋予，是目前最准确、防伪造的公网 IP 检测方式。</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>我的地理位置是如何被定位的？</h3>
+          <p>我们没有使用第三方的繁重或付费地理数据库，而是直接使用 Cloudflare 在全球分布式 CDN 节点上的本地 Geolocation 库。当地理位置字段缺失时（例如本地开发环境），我们会无缝切换到免费公开的 <code>ipwho.is</code> 接口来保证功能的连贯性。</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>本站会收集或保存我的隐私数据吗？</h3>
+          <p><strong>绝对不会。</strong> 我们非常重视隐私。我们没有后端数据库，不记录任何用户的查询历史、IP 记录或浏览行为。本站没有安装任何具有追踪性质的第三方分析工具或营销 Cookie，您完全可以放心使用。</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>为什么地图定位显示的地点与我实际所在位置有偏差？</h3>
+          <p>IP 地址地理位置定位是基于运营商分配 IP 段时的注册信息（如 ASN / 交换中心位置）。对于大部分民用宽带和移动网络，定位通常精确到城市级别。如果您使用了代理服务器、VPN 或加速器，则地图显示的将是代理服务器节点的出口 IP 地理位置。</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>DNS 查询和 Whois 工具的数据来源是什么？</h3>
+          <p>DNS 查询工具使用了公开的 DNS-over-HTTPS (DoH) 加密查询通道获取结果；Whois 工具则采用了最新的全球 RDAP 协议直接与各域名注册局、区域 IP 管理局进行点对点交互，从而获取没有格式污染的原始 JSON 数据。</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div>
+        &copy; 2026 ip.me. 保留所有权利。
+      </div>
+      <div class="footer-links">
+        <a href="/">我的 IP</a>
+        <a href="/lookup.html">IP 查询</a>
+        <a href="/dns.html">DNS Lookup</a>
+        <a href="/whois.html">Whois</a>
+        <a href="/about.html">关于</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

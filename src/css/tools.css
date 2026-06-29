@@ -1,0 +1,220 @@
+/* DNS and Whois Tools Styles */
+
+/* Search bar styling */
+.tool-search-container {
+  margin-bottom: 2rem;
+}
+
+.tool-search-box {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--bg-card);
+  padding: 0.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: var(--transition-fast);
+}
+
+.tool-search-box:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.1);
+}
+
+.tool-search-box .form-control {
+  border: none;
+  background: transparent;
+  padding: 0.75rem 1rem;
+}
+
+.tool-search-box .form-control:focus {
+  box-shadow: none;
+}
+
+/* Tool Tab Navs */
+.tool-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.tool-tab {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: var(--transition-fast);
+}
+
+.tool-tab:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+.tool-tab.active {
+  background: var(--grad-primary);
+  color: var(--text-primary);
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+/* DNS Results Grid & Table */
+.dns-results {
+  margin-top: 1.5rem;
+}
+
+.dns-results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.dns-results-table th {
+  padding: 0.75rem 1rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-color);
+  background: rgba(255,255,255,0.02);
+}
+
+.dns-results-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  word-break: break-all;
+}
+
+.dns-results-table tr:hover {
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.dns-badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--primary);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+}
+
+.dns-badge.dns-a { background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.25); }
+.dns-badge.dns-aaaa { background: rgba(59, 130, 246, 0.15); color: #3b82f6; border-color: rgba(59, 130, 246, 0.25); }
+.dns-badge.dns-mx { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border-color: rgba(245, 158, 11, 0.25); }
+.dns-badge.dns-txt { background: rgba(168, 85, 247, 0.15); color: #a855f7; border-color: rgba(168, 85, 247, 0.25); }
+
+/* Whois Raw Container */
+.raw-whois-card {
+  margin-top: 1.5rem;
+}
+
+.raw-whois-title {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.raw-whois-container {
+  background: #05060a;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 1.5rem;
+  max-height: 500px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Custom scrollbar for raw logs */
+.raw-whois-container::-webkit-scrollbar {
+  width: 8px;
+}
+.raw-whois-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+.raw-whois-container::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+}
+.raw-whois-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Feature grid items on homepage / tools overview */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.feature-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.feature-box-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--primary-glow);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.feature-box-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+/* Info Alert */
+.info-alert {
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.info-alert svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+  .dns-results-table {
+    display: block;
+    overflow-x: auto;
+  }
+}

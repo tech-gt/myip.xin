@@ -1,0 +1,14 @@
+# Dependencies
+node_modules
+
+# Production build output
+dist
+
+# Temporary files
+.DS_Store
+.wrangler
+
+# Local env files
+.env
+.env.local
+.env.*.local

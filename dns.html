@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DNS Lookup | MyIP - 域名 DNS 记录实时查询工具</title>
+  <meta name="description" content="输入任意域名，快速查询 A、AAAA、CNAME、MX、TXT、NS 等各种类型的 DNS 解析记录。支持一键快速检索。">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/src/css/main.css">
+  <link rel="stylesheet" href="/src/css/tools.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <div class="container nav-container">
+      <a href="/" class="logo">
+        ip<span>.me</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">我的 IP</a></li>
+          <li><a href="/lookup.html">IP 查询</a></li>
+          <li><a href="/dns.html" class="active">DNS 查询</a></li>
+          <li><a href="/whois.html">Whois 查询</a></li>
+          <li><a href="/about.html">关于</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <h1>DNS Lookup 记录查询</h1>
+    <p style="margin-bottom: 2rem;">查询特定域名的 DNS 解析记录。支持常用的 A、AAAA、CNAME、MX、TXT 及 NS 记录解析。</p>
+
+    <!-- Search Section -->
+    <div class="tool-search-container">
+      <form id="dns-form" onsubmit="return false;">
+        <div class="tool-search-box">
+          <input 
+            type="text" 
+            id="dns-query" 
+            class="form-control" 
+            placeholder="请输入域名，如: google.com" 
+            required 
+            autofocus
+            autocomplete="off"
+          />
+          <button type="submit" class="btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            解析
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Tool Tabs -->
+    <div class="tool-tabs">
+      <div class="tool-tab active" data-type="ALL">全部记录 (ALL)</div>
+      <div class="tool-tab" data-type="A">A 记录</div>
+      <div class="tool-tab" data-type="AAAA">AAAA 记录</div>
+      <div class="tool-tab" data-type="CNAME">CNAME</div>
+      <div class="tool-tab" data-type="MX">MX 记录</div>
+      <div class="tool-tab" data-type="TXT">TXT 记录</div>
+      <div class="tool-tab" data-type="NS">NS 记录</div>
+    </div>
+
+    <!-- Alert / Tips -->
+    <div class="info-alert" id="dns-tip">
+      <svg viewBox="0 0 24 24"><path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v-2h-2v2z"/></svg>
+      <div>
+        <strong>提示：</strong>本工具通过 Cloudflare 加密 DNS 接口 (DoH) 进行实时公网解析，结果可能存在因 DNS 缓存导致的极短延迟。
+      </div>
+    </div>
+
+    <!-- Results Panel -->
+    <div class="card-glass dns-results">
+      <div id="dns-loader" class="loader-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>正在获取解析记录中...</p>
+      </div>
+      
+      <div id="no-records" style="text-align: center; padding: 3rem 0; color: var(--text-muted);">
+        暂无解析结果，请在上方输入域名并点击“解析”按钮。
+      </div>
+
+      <div id="dns-table-wrapper" style="display: none;">
+        <h3>解析结果</h3>
+        <table class="dns-results-table">
+          <thead>
+            <tr>
+              <th style="width: 25%;">域名 (Name)</th>
+              <th style="width: 15%;">类型 (Type)</th>
+              <th style="width: 15%;">TTL</th>
+              <th>记录值 (Value / Data)</th>
+            </tr>
+          </thead>
+          <tbody id="dns-records-body">
+            <!-- Dynamic rows will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div>
+        &copy; 2026 ip.me. 保留所有权利。
+      </div>
+      <div class="footer-links">
+        <a href="/">我的 IP</a>
+        <a href="/lookup.html">IP 查询</a>
+        <a href="/dns.html">DNS Lookup</a>
+        <a href="/whois.html">Whois</a>
+        <a href="/about.html">关于</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS Controller -->
+  <script type="module" src="/src/js/dns.js"></script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IP & Domain Lookup | MyIP - 任意 IP 地理位置与 ASN 查询</title>
+  <meta name="description" content="输入任何 IPv4/IPv6 地址或域名，查询其经纬度、国家代码、ASN 归属组织、ISP 及具体地理位置。支持地图定位，数据实时准确。">
+  
+  <!-- Leaflet CSS for Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/src/css/main.css">
+  <link rel="stylesheet" href="/src/css/map.css">
+  <link rel="stylesheet" href="/src/css/tools.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <div class="container nav-container">
+      <a href="/" class="logo">
+        ip<span>.me</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">我的 IP</a></li>
+          <li><a href="/lookup.html" class="active">IP 查询</a></li>
+          <li><a href="/dns.html">DNS 查询</a></li>
+          <li><a href="/whois.html">Whois 查询</a></li>
+          <li><a href="/about.html">关于</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <h1>IP / 域名地理位置查询</h1>
+    <p style="margin-bottom: 2rem;">查询任意公网 IP 地址或解析特定域名，获取其所在的国家、城市、经纬度、ASN 及 ISP 信息。</p>
+
+    <!-- Search Section -->
+    <div class="tool-search-container">
+      <form id="lookup-form" onsubmit="return false;">
+        <div class="tool-search-box">
+          <input 
+            type="text" 
+            id="lookup-query" 
+            class="form-control" 
+            placeholder="请输入 IP 地址 (如: 8.8.8.8) 或域名 (如: google.com)" 
+            required 
+            autofocus
+            autocomplete="off"
+          />
+          <button type="submit" class="btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            查询
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Results Section (Initially hidden or shown as Loading/Default) -->
+    <div id="results-wrapper" style="display: none;">
+      <div class="ip-headline-section">
+        <h2>查询目标: <span id="target-display" class="ip-address-text" style="font-size: 1.8rem; background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">...</span></h2>
+      </div>
+
+      <div class="ip-dashboard">
+        <!-- Map Card -->
+        <div class="card-glass map-card">
+          <div id="loader" class="loader-overlay">
+            <div class="spinner"></div>
+            <p>正在定位地理信息...</p>
+          </div>
+          <div id="map"></div>
+        </div>
+
+        <!-- Info Table Card -->
+        <div class="card-glass info-card">
+          <h3>
+            <span>地理位置及网络详情</span>
+            <span id="country-badge" style="font-size: 1rem;"></span>
+          </h3>
+          <table class="info-table">
+            <tbody>
+              <tr>
+                <th>查询 IP</th>
+                <td id="val-ip">...</td>
+              </tr>
+              <tr>
+                <th>城市</th>
+                <td id="val-city">...</td>
+              </tr>
+              <tr>
+                <th>国家 / 地区</th>
+                <td id="val-country">...</td>
+              </tr>
+              <tr>
+                <th>国家代码</th>
+                <td id="val-country-code">...</td>
+              </tr>
+              <tr>
+                <th>纬度 (Latitude)</th>
+                <td id="val-lat">...</td>
+              </tr>
+              <tr>
+                <th>经度 (Longitude)</th>
+                <td id="val-lng">...</td>
+              </tr>
+              <tr>
+                <th>ASN 编号</th>
+                <td id="val-asn">...</td>
+              </tr>
+              <tr>
+                <th>运营商 / 组织</th>
+                <td id="val-org">...</td>
+              </tr>
+              <tr>
+                <th>时区 (Timezone)</th>
+                <td id="val-timezone">...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div>
+        &copy; 2026 ip.me. 保留所有权利。
+      </div>
+      <div class="footer-links">
+        <a href="/">我的 IP</a>
+        <a href="/lookup.html">IP 查询</a>
+        <a href="/dns.html">DNS Lookup</a>
+        <a href="/whois.html">Whois</a>
+        <a href="/about.html">关于</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <span id="toast-message">操作成功</span>
+  </div>
+
+  <!-- Leaflet JS for Map -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <!-- JS Controller -->
+  <script type="module" src="/src/js/lookup.js"></script>
+</body>
+</html>
