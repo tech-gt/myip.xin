@@ -1,7 +1,7 @@
 {
   "name": "myip-web",
   "version": "1.0.0",
-  "description": "A premium IP and Network Tools website similar to ip.me, optimized for Cloudflare Pages.",
+  "description": "A premium IP and Network Tools website myip.xin, optimized for Cloudflare Pages.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
