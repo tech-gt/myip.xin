@@ -6,6 +6,15 @@
   <title>IP & Domain Lookup | MyIP - 任意 IP 地理位置与 ASN 查询</title>
   <meta name="description" content="输入任何 IPv4/IPv6 地址或域名，查询其经纬度、国家代码、ASN 归属组织、ISP 及具体地理位置。支持地图定位，数据实时准确。">
   
+  <!-- Theme script (critical to prevent flash) -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <script type="module" src="/src/js/theme.js"></script>
+
   <!-- Leaflet CSS for Map -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   
@@ -29,6 +38,26 @@
           <li><a href="/dns.html">DNS 查询</a></li>
           <li><a href="/whois.html">Whois 查询</a></li>
           <li><a href="/about.html">关于</a></li>
+          <li>
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme" title="切换主题">
+              <!-- Sun Icon -->
+              <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2"></path>
+                <path d="M12 20v2"></path>
+                <path d="M4.93 4.93l1.41 1.41"></path>
+                <path d="M17.66 17.66l1.41 1.41"></path>
+                <path d="M2 12h2"></path>
+                <path d="M20 12h2"></path>
+                <path d="M6.34 17.66l-1.41 1.41"></path>
+                <path d="M19.07 4.93l-1.41 1.41"></path>
+              </svg>
+              <!-- Moon Icon -->
+              <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+              </svg>
+            </button>
+          </li>
         </ul>
       </nav>
     </div>

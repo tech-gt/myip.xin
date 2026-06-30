@@ -41,7 +41,7 @@
 }
 
 .tool-tab {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--btn-sec-bg);
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
   padding: 0.5rem 1.25rem;
@@ -55,7 +55,7 @@
 }
 
 .tool-tab:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--btn-sec-bg-hover);
   color: var(--text-primary);
 }
 
@@ -83,19 +83,19 @@
   color: var(--text-secondary);
   font-weight: 600;
   border-bottom: 1px solid var(--border-color);
-  background: rgba(255,255,255,0.02);
+  background: var(--btn-sec-bg);
 }
 
 .dns-results-table td {
   padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid var(--table-row-border);
   font-family: var(--font-mono);
   font-size: 0.9rem;
   word-break: break-all;
 }
 
 .dns-results-table tr:hover {
-  background: rgba(255, 255, 255, 0.01);
+  background: var(--btn-copy-hover);
 }
 
 .dns-badge {
@@ -128,7 +128,7 @@
 }
 
 .raw-whois-container {
-  background: #05060a;
+  background: var(--raw-code-bg);
   border: 1px solid var(--border-color);
   border-radius: 10px;
   padding: 1.5rem;
@@ -137,7 +137,7 @@
   font-family: var(--font-mono);
   font-size: 0.85rem;
   line-height: 1.6;
-  color: #cbd5e1;
+  color: var(--raw-code-color);
   white-space: pre-wrap;
   word-break: break-all;
 }
@@ -150,11 +150,11 @@
   background: transparent;
 }
 .raw-whois-container::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.1);
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
 .raw-whois-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(255,255,255,0.2);
+  background: var(--scrollbar-thumb-hover);
 }
 
 /* Feature grid items on homepage / tools overview */
@@ -163,6 +163,7 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
   margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .feature-box {

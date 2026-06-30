@@ -6,6 +6,15 @@
   <title>DNS Lookup | MyIP - 域名 DNS 记录实时查询工具</title>
   <meta name="description" content="输入任意域名，快速查询 A、AAAA、CNAME、MX、TXT、NS 等各种类型的 DNS 解析记录。支持一键快速检索。">
   
+  <!-- Theme script (critical to prevent flash) -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <script type="module" src="/src/js/theme.js"></script>
+
   <!-- Stylesheets -->
   <link rel="stylesheet" href="/src/css/main.css">
   <link rel="stylesheet" href="/src/css/tools.css">
@@ -25,6 +34,26 @@
           <li><a href="/dns.html" class="active">DNS 查询</a></li>
           <li><a href="/whois.html">Whois 查询</a></li>
           <li><a href="/about.html">关于</a></li>
+          <li>
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme" title="切换主题">
+              <!-- Sun Icon -->
+              <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2"></path>
+                <path d="M12 20v2"></path>
+                <path d="M4.93 4.93l1.41 1.41"></path>
+                <path d="M17.66 17.66l1.41 1.41"></path>
+                <path d="M2 12h2"></path>
+                <path d="M20 12h2"></path>
+                <path d="M6.34 17.66l-1.41 1.41"></path>
+                <path d="M19.07 4.93l-1.41 1.41"></path>
+              </svg>
+              <!-- Moon Icon -->
+              <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+              </svg>
+            </button>
+          </li>
         </ul>
       </nav>
     </div>

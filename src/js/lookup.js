@@ -1,4 +1,4 @@
-import { renderMap, resetMapInstance, showToast } from './utils.js';
+import { renderMap, resetMapInstance, showToast, updateMapTheme } from './utils.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("lookup-form");
@@ -118,5 +118,10 @@ document.addEventListener("DOMContentLoaded", () => {
       resultsWrapper.style.display = "none";
       queryInput.value = "";
     }
+  });
+
+  // Listen to theme change to update Leaflet tiles
+  window.addEventListener("theme-change", () => {
+    updateMapTheme();
   });
 });

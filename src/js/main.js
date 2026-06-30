@@ -1,4 +1,4 @@
-import { renderMap, copyToClipboard } from './utils.js';
+import { renderMap, copyToClipboard, updateMapTheme } from './utils.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
   const ipDisplay = document.getElementById("ip-display");
@@ -74,5 +74,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (userIp) {
       copyToClipboard(userIp);
     }
+  });
+
+  // Listen to theme change to update Leaflet tiles
+  window.addEventListener("theme-change", () => {
+    updateMapTheme();
   });
 });

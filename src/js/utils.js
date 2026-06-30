@@ -36,18 +36,37 @@ export async function copyToClipboard(text) {
   }
 }
 
-// Map initialization with dark style tiles
+// Map initialization with theme-aware tiles
 let activeMapInstance = null;
 let activeMarker = null;
+let activeTileLayer = null;
+
+function getTileUrl() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  return isDark
+    ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+    : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+}
+
+export function updateMapTheme() {
+  if (activeMapInstance && activeTileLayer) {
+    activeTileLayer.setUrl(getTileUrl());
+  }
+}
 
 export function renderMap(mapId, lat, lng, popupText = "大致位置") {
   // If lat or lng is missing, use default coordinates
   const latitude = parseFloat(lat) || 0;
   const longitude = parseFloat(lng) || 0;
 
+  const tileUrl = getTileUrl();
+
   if (activeMapInstance) {
-    // If map already exists, update center and marker
+    // If map already exists, update center, marker and tiles
     activeMapInstance.setView([latitude, longitude], 11);
+    if (activeTileLayer) {
+      activeTileLayer.setUrl(tileUrl);
+    }
     if (activeMarker) {
       activeMarker.setLatLng([latitude, longitude]).setPopupContent(popupText).openPopup();
     } else {
@@ -64,8 +83,8 @@ export function renderMap(mapId, lat, lng, popupText = "大致位置") {
     scrollWheelZoom: false
   }).setView([latitude, longitude], 11);
 
-  // Use CartoDB Dark Matter tiles for modern dark look
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  // Load appropriate theme tiles
+  activeTileLayer = L.tileLayer(tileUrl, {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 20
@@ -82,4 +101,5 @@ export function renderMap(mapId, lat, lng, popupText = "大致位置") {
 export function resetMapInstance() {
   activeMapInstance = null;
   activeMarker = null;
+  activeTileLayer = null;
 }
