@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let activeType = "ALL";
   let currentQueryDomain = "";
+  let lastQueryStatus = "empty"; // "empty", "success", "no_records", "error"
 
   // DNS Type Mapping
   const DNS_TYPES = {
@@ -82,9 +83,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (answers.length === 0) {
+        lastQueryStatus = "no_records";
         noRecords.style.display = "block";
-        noRecords.textContent = `没有找到 ${type} 解析记录。`;
+        noRecords.textContent = window.i18n.t("dns_no_records_found").replace("{type}", type);
       } else {
+        lastQueryStatus = "success";
         // Sort answers: A, AAAA, CNAME, MX, TXT, NS
         const typePriority = { "A": 1, "AAAA": 2, "CNAME": 3, "MX": 4, "TXT": 5, "NS": 6 };
         
@@ -116,9 +119,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     } catch (error) {
       console.error("DNS query error:", error);
-      showToast("解析域名失败，请稍后重试");
+      showToast(window.i18n.t("dns_failed_toast"));
+      lastQueryStatus = "error";
       noRecords.style.display = "block";
-      noRecords.textContent = "解析域名出错，请确认域名拼写是否正确。";
+      noRecords.textContent = window.i18n.t("dns_failed_desc");
     } finally {
       loader.style.opacity = "0";
       setTimeout(() => {
@@ -201,7 +205,21 @@ document.addEventListener("DOMContentLoaded", () => {
       queryInput.value = "";
       tableWrapper.style.display = "none";
       noRecords.style.display = "block";
-      noRecords.textContent = "暂无解析结果，请在上方输入域名并点击“解析”按钮。";
+      lastQueryStatus = "empty";
+      noRecords.textContent = window.i18n.t("dns_no_records");
+    }
+  });
+
+  // Handle language change for dynamic text
+  window.addEventListener("lang-change", () => {
+    if (noRecords.style.display !== "none") {
+      if (lastQueryStatus === "empty") {
+        noRecords.textContent = window.i18n.t("dns_no_records");
+      } else if (lastQueryStatus === "no_records") {
+        noRecords.textContent = window.i18n.t("dns_no_records_found").replace("{type}", activeType);
+      } else if (lastQueryStatus === "error") {
+        noRecords.textContent = window.i18n.t("dns_failed_desc");
+      }
     }
   });
 });

@@ -14,6 +14,7 @@
     })();
   </script>
   <script type="module" src="/src/js/theme.js"></script>
+  <script type="module" src="/src/js/i18n.js"></script>
 
   <!-- Leaflet CSS for Map -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
@@ -33,13 +34,13 @@
       </a>
       <nav>
         <ul class="nav-links">
-          <li><a href="/" class="active">我的 IP</a></li>
-          <li><a href="/lookup.html">IP 查询</a></li>
-          <li><a href="/dns.html">DNS 查询</a></li>
-          <li><a href="/whois.html">Whois 查询</a></li>
-          <li><a href="/about.html">关于</a></li>
+          <li><a href="/" class="active" data-i18n="nav_my_ip">我的 IP</a></li>
+          <li><a href="/lookup.html" data-i18n="nav_ip_lookup">IP 查询</a></li>
+          <li><a href="/dns.html" data-i18n="nav_dns_lookup">DNS 查询</a></li>
+          <li><a href="/whois.html" data-i18n="nav_whois_lookup">Whois 查询</a></li>
+          <li><a href="/about.html" data-i18n="nav_about">关于</a></li>
           <li>
-            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme" title="切换主题">
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme" title="切换主题" data-i18n-title="nav_theme_title">
               <!-- Sun Icon -->
               <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="4"></circle>
@@ -66,10 +67,10 @@
   <!-- Main Content -->
   <main class="container">
     <div class="ip-headline-section">
-      <h1>您的公网 IP 地址是</h1>
+      <h1 data-i18n="my_ip_is">您的公网 IP 地址是</h1>
       <div class="ip-display-container">
-        <span id="ip-display" class="ip-address-text">正在获取中...</span>
-        <button id="btn-copy-ip" class="btn-copy" title="复制 IP" aria-label="Copy IP address">
+        <span id="ip-display" class="ip-address-text" data-i18n="loading_ip">正在获取中...</span>
+        <button id="btn-copy-ip" class="btn-copy" title="复制 IP" aria-label="Copy IP address" data-i18n-title="copy_ip_title">
           <svg viewBox="0 0 24 24">
             <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0-2-.9-2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
           </svg>
@@ -83,7 +84,7 @@
       <div class="card-glass map-card">
         <div id="loader" class="loader-overlay">
           <div class="spinner"></div>
-          <p>正在定位地理信息...</p>
+          <p data-i18n="loading_geo">正在定位地理信息...</p>
         </div>
         <div id="map"></div>
       </div>
@@ -91,46 +92,46 @@
       <!-- Info Table Section -->
       <div class="card-glass info-card">
         <h3>
-          <span>IP 地理位置及网络详情</span>
+          <span data-i18n="ip_details_title">IP 地理位置及网络详情</span>
           <span id="country-badge" style="font-size: 1rem;"></span>
         </h3>
         <table class="info-table">
           <tbody>
             <tr>
-              <th>城市</th>
-              <td id="val-city">读取中...</td>
+              <th data-i18n="col_city">城市</th>
+              <td id="val-city" data-i18n="loading_value">读取中...</td>
             </tr>
             <tr>
-              <th>国家 / 地区</th>
-              <td id="val-country">读取中...</td>
+              <th data-i18n="col_country">国家 / 地区</th>
+              <td id="val-country" data-i18n="loading_value">读取中...</td>
             </tr>
             <tr>
-              <th>国家代码</th>
-              <td id="val-country-code">读取中...</td>
+              <th data-i18n="col_country_code">国家代码</th>
+              <td id="val-country-code" data-i18n="loading_value">读取中...</td>
             </tr>
             <tr>
-              <th>纬度 (Latitude)</th>
-              <td id="val-lat">读取中...</td>
+              <th data-i18n="col_latitude">纬度 (Latitude)</th>
+              <td id="val-lat" data-i18n="loading_value">读取中...</td>
             </tr>
             <tr>
-              <th>经度 (Longitude)</th>
-              <td id="val-lng">读取中...</td>
+              <th data-i18n="col_longitude">经度 (Longitude)</th>
+              <td id="val-lng" data-i18n="loading_value">读取中...</td>
             </tr>
             <tr>
-              <th>ASN 编号</th>
-              <td id="val-asn">读取中...</td>
+              <th data-i18n="col_asn">ASN 编号</th>
+              <td id="val-asn" data-i18n="loading_value">读取中...</td>
             </tr>
             <tr>
-              <th>运营商 / 组织</th>
-              <td id="val-org">读取中...</td>
+              <th data-i18n="col_isp">运营商 / 组织</th>
+              <td id="val-org" data-i18n="loading_value">读取中...</td>
             </tr>
             <tr>
-              <th>时区 (Timezone)</th>
-              <td id="val-timezone">读取中...</td>
+              <th data-i18n="col_timezone">时区 (Timezone)</th>
+              <td id="val-timezone" data-i18n="loading_value">读取中...</td>
             </tr>
             <tr>
-              <th>节点 (Colo)</th>
-              <td id="val-colo">读取中...</td>
+              <th data-i18n="col_colo">节点 (Colo)</th>
+              <td id="val-colo" data-i18n="loading_value">读取中...</td>
             </tr>
           </tbody>
         </table>
@@ -143,27 +144,27 @@
         <div class="feature-box-icon">
           <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
         </div>
-        <h3>IP 地理位置查询</h3>
-        <p>提供高精度的 IP 经纬度、城市以及 ASN 归属组织查询，支持在交互式地图上查看具体位置，直观明了。</p>
-        <a href="/lookup.html" style="margin-top: auto; padding-top: 1rem; font-weight: 600;">立即查询 &rarr;</a>
+        <h3 data-i18n="feature_geo_title">IP 地理位置查询</h3>
+        <p data-i18n="feature_geo_desc">提供高精度的 IP 经纬度、城市以及 ASN 归属组织查询，支持在交互式地图上查看具体位置，直观明了。</p>
+        <a href="/lookup.html" style="margin-top: auto; padding-top: 1rem; font-weight: 600;" data-i18n="feature_geo_btn">立即查询 &rarr;</a>
       </div>
 
       <div class="card-glass feature-box">
         <div class="feature-box-icon">
           <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
         </div>
-        <h3>DNS 记录深度解析</h3>
-        <p>支持对任意域名进行 A、AAAA、CNAME、MX、TXT 及 NS 记录的实时 DNS lookup，支持使用标准的 DNS-over-HTTPS 加密通道解析。</p>
-        <a href="/dns.html" style="margin-top: auto; padding-top: 1rem; font-weight: 600;">开始解析 &rarr;</a>
+        <h3 data-i18n="feature_dns_title">DNS 记录深度解析</h3>
+        <p data-i18n="feature_dns_desc">支持对任意域名进行 A、AAAA、CNAME、MX、TXT 及 NS 记录的实时 DNS lookup，支持使用标准的 DNS-over-HTTPS 加密通道解析。</p>
+        <a href="/dns.html" style="margin-top: auto; padding-top: 1rem; font-weight: 600;" data-i18n="feature_dns_btn">开始解析 &rarr;</a>
       </div>
 
       <div class="card-glass feature-box">
         <div class="feature-box-icon">
           <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
         </div>
-        <h3>Domain / IP Whois 查询</h3>
-        <p>基于标准的 RDAP (注册数据访问协议) 协议，从各大顶级域名注册局及区域 IP 注册局直接拉取最新的所有权、注册商、创建与到期时间等 Whois 信息。</p>
-        <a href="/whois.html" style="margin-top: auto; padding-top: 1rem; font-weight: 600;">Whois 查询 &rarr;</a>
+        <h3 data-i18n="feature_whois_title">Domain / IP Whois 查询</h3>
+        <p data-i18n="feature_whois_desc">基于标准的 RDAP (注册数据访问协议) 协议，从各大顶级域名注册局及区域 IP 注册局直接拉取最新的所有权、注册商、创建与到期时间等 Whois 信息。</p>
+        <a href="/whois.html" style="margin-top: auto; padding-top: 1rem; font-weight: 600;" data-i18n="feature_whois_btn">Whois 查询 &rarr;</a>
       </div>
     </div>
   </main>
@@ -172,14 +173,14 @@
   <footer>
     <div class="container footer-content">
       <div>
-        &copy; 2026 myip.xin. 保留所有权利。极速分发，强力驱动于 Cloudflare Edge.
+        &copy; 2026 myip.xin. <span data-i18n="footer_copy_text">保留所有权利。</span>
       </div>
       <div class="footer-links">
-        <a href="/">我的 IP</a>
-        <a href="/lookup.html">IP 查询</a>
-        <a href="/dns.html">DNS Lookup</a>
-        <a href="/whois.html">Whois</a>
-        <a href="/about.html">关于</a>
+        <a href="/" data-i18n="nav_my_ip">我的 IP</a>
+        <a href="/lookup.html" data-i18n="nav_ip_lookup">IP 查询</a>
+        <a href="/dns.html" data-i18n="nav_dns_lookup">DNS Lookup</a>
+        <a href="/whois.html" data-i18n="nav_whois_lookup">Whois</a>
+        <a href="/about.html" data-i18n="nav_about">关于</a>
       </div>
     </div>
   </footer>

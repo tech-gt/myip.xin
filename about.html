@@ -14,6 +14,7 @@
     })();
   </script>
   <script type="module" src="/src/js/theme.js"></script>
+  <script type="module" src="/src/js/i18n.js"></script>
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="/src/css/main.css">
@@ -65,13 +66,13 @@
       </a>
       <nav>
         <ul class="nav-links">
-          <li><a href="/">我的 IP</a></li>
-          <li><a href="/lookup.html">IP 查询</a></li>
-          <li><a href="/dns.html">DNS 查询</a></li>
-          <li><a href="/whois.html">Whois 查询</a></li>
-          <li><a href="/about.html" class="active">关于</a></li>
+          <li><a href="/" data-i18n="nav_my_ip">我的 IP</a></li>
+          <li><a href="/lookup.html" data-i18n="nav_ip_lookup">IP 查询</a></li>
+          <li><a href="/dns.html" data-i18n="nav_dns_lookup">DNS 查询</a></li>
+          <li><a href="/whois.html" data-i18n="nav_whois_lookup">Whois 查询</a></li>
+          <li><a href="/about.html" class="active" data-i18n="nav_about">关于</a></li>
           <li>
-            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme" title="切换主题">
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme" title="切换主题" data-i18n-title="nav_theme_title">
               <!-- Sun Icon -->
               <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="4"></circle>
@@ -97,36 +98,36 @@
 
   <!-- Main Content -->
   <main class="container">
-    <h1>关于 myip.xin (MyIP)</h1>
-    <p class="about-lead">myip.xin 是一个现代、极速且保护隐私的公网 IP 地址和网络诊断工具网站。我们致力于为您提供最干净、最高效的查询体验。</p>
+    <h1 data-i18n="about_title">关于 myip.xin (MyIP)</h1>
+    <p class="about-lead" data-i18n="about_desc">myip.xin 是一个现代、极速且保护隐私的公网 IP 地址和网络诊断工具网站。我们致力于为您提供最干净、最高效的查询体验。</p>
 
     <div class="card-glass faq-section">
-      <h2>常见问题与解答 (FAQ)</h2>
+      <h2 data-i18n="about_faq_section_title">常见问题与解答 (FAQ)</h2>
       <div style="margin-top: 1.5rem;">
         
         <div class="faq-item">
-          <h3>本站是如何检测我的 IP 地址的？</h3>
-          <p>当您访问本站时，我们的边缘计算服务器 (Cloudflare Pages Function / Worker) 会读取您请求头中的 <code>CF-Connecting-IP</code> 字段。该值由网络交换的边缘节点直接赋予，是目前最准确、防伪造的公网 IP 检测方式。</p>
+          <h3 data-i18n="about_faq1_title">本站是如何检测我的 IP 地址的？</h3>
+          <p data-i18n="about_faq1_desc">当您访问本站时，我们的边缘计算服务器 (Cloudflare Pages Function / Worker) 会读取您请求头中的 <code>CF-Connecting-IP</code> 字段。该值由网络交换的边缘节点直接赋予，是目前最准确、防伪造的公网 IP 检测方式。</p>
         </div>
 
         <div class="faq-item">
-          <h3>我的地理位置是如何被定位的？</h3>
-          <p>我们没有使用第三方的繁重或付费地理数据库，而是直接使用 Cloudflare 在全球分布式 CDN 节点上的本地 Geolocation 库。当地理位置字段缺失时（例如本地开发环境），我们会无缝切换到免费公开的 <code>ipwho.is</code> 接口来保证功能的连贯性。</p>
+          <h3 data-i18n="about_faq2_title">我的地理位置是如何被定位的？</h3>
+          <p data-i18n="about_faq2_desc">我们没有使用第三方的繁重或付费地理数据库，而是直接使用 Cloudflare 在全球分布式 CDN 节点上的本地 Geolocation 库。当地理位置字段缺失时（例如本地开发环境），我们会无缝切换到免费公开的 <code>ipwho.is</code> 接口来保证功能的连贯性。</p>
         </div>
 
         <div class="faq-item">
-          <h3>本站会收集或保存我的隐私数据吗？</h3>
-          <p><strong>绝对不会。</strong> 我们非常重视隐私。我们没有后端数据库，不记录任何用户的查询历史、IP 记录或浏览行为。本站没有安装任何具有追踪性质的第三方分析工具或营销 Cookie，您完全可以放心使用。</p>
+          <h3 data-i18n="about_faq3_title">本站会收集或保存我的隐私数据吗？</h3>
+          <p data-i18n="about_faq3_desc"><strong>绝对不会。</strong> 我们非常重视隐私。我们没有后端数据库，不记录任何用户的查询历史、IP 记录或浏览行为。本站没有安装任何具有追踪性质的第三方分析工具或营销 Cookie，您完全可以放心使用。</p>
         </div>
 
         <div class="faq-item">
-          <h3>为什么地图定位显示的地点与我实际所在位置有偏差？</h3>
-          <p>IP 地址地理位置定位是基于运营商分配 IP 段时的注册信息（如 ASN / 交换中心位置）。对于大部分民用宽带和移动网络，定位通常精确到城市级别。如果您使用了代理服务器、VPN 或加速器，则地图显示的将是代理服务器节点的出口 IP 地理位置。</p>
+          <h3 data-i18n="about_faq4_title">为什么地图定位显示的地点与我实际所在位置有偏差？</h3>
+          <p data-i18n="about_faq4_desc">IP 地址地理位置定位是基于运营商分配 IP 段时的注册信息（如 ASN / 交换中心位置）。对于大部分民用宽带 and 移动网络，定位通常精确到城市级别。如果您使用了代理服务器、VPN 或加速器，则地图显示的将是代理服务器节点的出口 IP 地理位置。</p>
         </div>
 
         <div class="faq-item">
-          <h3>DNS 查询和 Whois 工具的数据来源是什么？</h3>
-          <p>DNS 查询工具使用了公开的 DNS-over-HTTPS (DoH) 加密查询通道获取结果；Whois 工具则采用了最新的全球 RDAP 协议直接与各域名注册局、区域 IP 管理局进行点对点交互，从而获取没有格式污染的原始 JSON 数据。</p>
+          <h3 data-i18n="about_faq5_title">DNS 查询和 Whois 工具的数据来源是什么？</h3>
+          <p data-i18n="about_faq5_desc">DNS 查询工具使用了公开的 DNS-over-HTTPS (DoH) 加密查询通道获取结果；Whois 工具则采用了最新的全球 RDAP 协议直接与各域名注册局、区域 IP 管理局进行点对点交互，从而获取没有格式污染的原始 JSON 数据。</p>
         </div>
       </div>
     </div>
@@ -136,14 +137,14 @@
   <footer>
     <div class="container footer-content">
       <div>
-        &copy; 2026 myip.xin. 保留所有权利。
+        &copy; 2026 myip.xin. <span data-i18n="footer_copy_text">保留所有权利。</span>
       </div>
       <div class="footer-links">
-        <a href="/">我的 IP</a>
-        <a href="/lookup.html">IP 查询</a>
-        <a href="/dns.html">DNS Lookup</a>
-        <a href="/whois.html">Whois</a>
-        <a href="/about.html">关于</a>
+        <a href="/" data-i18n="nav_my_ip">我的 IP</a>
+        <a href="/lookup.html" data-i18n="nav_ip_lookup">IP 查询</a>
+        <a href="/dns.html" data-i18n="nav_dns_lookup">DNS Lookup</a>
+        <a href="/whois.html" data-i18n="nav_whois_lookup">Whois</a>
+        <a href="/about.html" data-i18n="nav_about">关于</a>
       </div>
     </div>
   </footer>

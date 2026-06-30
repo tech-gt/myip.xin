@@ -7,10 +7,68 @@ document.addEventListener("DOMContentLoaded", () => {
   const targetDisplay = document.getElementById("target-display");
   const loader = document.getElementById("loader");
 
+  let loadedLookupData = null;
+  let activeQuery = "";
+
+  function renderLookupData(data) {
+    if (!data) return;
+
+    const unknownVal = window.i18n.t("unknown_value");
+
+    // Populate table values
+    document.getElementById("val-ip").textContent = data.ip || "-";
+    document.getElementById("val-city").textContent = data.city || window.i18n.t("unknown_city");
+    document.getElementById("val-country").textContent = window.i18n.tCountry(data.country) || data.countryName || window.i18n.t("unknown_country");
+    document.getElementById("val-country-code").textContent = data.country || "-";
+    document.getElementById("val-lat").textContent = data.latitude || "-";
+    document.getElementById("val-lng").textContent = data.longitude || "-";
+    document.getElementById("val-asn").textContent = data.asn ? `AS${data.asn}` : unknownVal;
+    document.getElementById("val-org").textContent = data.asnOrg || data.isp || unknownVal;
+    document.getElementById("val-timezone").textContent = data.timezone || "-";
+
+    // Country Flag Badge
+    const countryBadge = document.getElementById("country-badge");
+    if (data.country) {
+      // Generate flag emoji
+      const flagEmoji = data.country
+        .toUpperCase()
+        .replace(/./g, char => String.fromCodePoint(char.charCodeAt(0) + 127397));
+      countryBadge.innerHTML = `<span class="flag-emoji">${flagEmoji}</span> <span>${data.country}</span>`;
+    } else {
+      countryBadge.innerHTML = "";
+    }
+
+    // Render map
+    if (data.latitude && data.longitude) {
+      const localizedCountry = window.i18n.tCountry(data.country) || data.countryName || "";
+      const popupText = `${window.i18n.t("map_popup_query")}: ${data.ip}<br>${data.city || ""}${data.city && localizedCountry ? ", " : ""}${localizedCountry}`;
+      renderMap("map", data.latitude, data.longitude, popupText);
+    } else {
+      document.getElementById("map").innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);">${window.i18n.t("no_coords_lookup")}</div>`;
+    }
+  }
+
+  function renderErrorState(errorMessage) {
+    // Reset values
+    document.getElementById("val-ip").textContent = "-";
+    document.getElementById("val-city").textContent = window.i18n.t("failed_title");
+    document.getElementById("val-country").textContent = window.i18n.t("failed_title");
+    document.getElementById("val-country-code").textContent = "-";
+    document.getElementById("val-lat").textContent = "-";
+    document.getElementById("val-lng").textContent = "-";
+    document.getElementById("val-asn").textContent = "-";
+    document.getElementById("val-org").textContent = window.i18n.t("failed_title");
+    document.getElementById("val-timezone").textContent = "-";
+    document.getElementById("country-badge").innerHTML = "";
+    
+    document.getElementById("map").innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--error);">${window.i18n.t("failed_data_lookup")}${errorMessage}</div>`;
+  }
+
   // Query handler
   async function performLookup(query) {
     if (!query) return;
     
+    activeQuery = query;
     // Show results section and loading spinner
     resultsWrapper.style.display = "block";
     loader.style.display = "flex";
@@ -25,56 +83,17 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        throw new Error(data.message || "查询失败");
+        throw new Error(data.message || window.i18n.t("failed_title"));
       }
 
-      // Populate table values
-      document.getElementById("val-ip").textContent = data.ip || "-";
-      document.getElementById("val-city").textContent = data.city || "未知城市";
-      document.getElementById("val-country").textContent = data.countryName || "未知国家/地区";
-      document.getElementById("val-country-code").textContent = data.country || "-";
-      document.getElementById("val-lat").textContent = data.latitude || "-";
-      document.getElementById("val-lng").textContent = data.longitude || "-";
-      document.getElementById("val-asn").textContent = data.asn ? `AS${data.asn}` : "未知";
-      document.getElementById("val-org").textContent = data.asnOrg || data.isp || "未知";
-      document.getElementById("val-timezone").textContent = data.timezone || "-";
-
-      // Country Flag Badge
-      const countryBadge = document.getElementById("country-badge");
-      if (data.country) {
-        // Generate flag emoji
-        const flagEmoji = data.country
-          .toUpperCase()
-          .replace(/./g, char => String.fromCodePoint(char.charCodeAt(0) + 127397));
-        countryBadge.innerHTML = `<span class="flag-emoji">${flagEmoji}</span> <span>${data.country}</span>`;
-      } else {
-        countryBadge.innerHTML = "";
-      }
-
-      // Render map
-      if (data.latitude && data.longitude) {
-        renderMap("map", data.latitude, data.longitude, `查询目标: ${data.ip}<br>${data.city || ""}, ${data.countryName || ""}`);
-      } else {
-        document.getElementById("map").innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);">暂无可用位置坐标</div>`;
-      }
+      loadedLookupData = data;
+      renderLookupData(data);
 
     } catch (error) {
       console.error("Lookup error:", error);
-      showToast(error.message || "解析出错，请检查输入是否正确");
-      
-      // Reset values
-      document.getElementById("val-ip").textContent = "-";
-      document.getElementById("val-city").textContent = "查询失败";
-      document.getElementById("val-country").textContent = "查询失败";
-      document.getElementById("val-country-code").textContent = "-";
-      document.getElementById("val-lat").textContent = "-";
-      document.getElementById("val-lng").textContent = "-";
-      document.getElementById("val-asn").textContent = "-";
-      document.getElementById("val-org").textContent = "查询失败";
-      document.getElementById("val-timezone").textContent = "-";
-      document.getElementById("country-badge").innerHTML = "";
-      
-      document.getElementById("map").innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--error);">获取数据失败: ${error.message}</div>`;
+      showToast(error.message || window.i18n.t("failed_lookup_toast"));
+      loadedLookupData = null;
+      renderErrorState(error.message);
     } finally {
       // Fade out loader
       loader.style.opacity = "0";
@@ -117,11 +136,22 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       resultsWrapper.style.display = "none";
       queryInput.value = "";
+      loadedLookupData = null;
+      activeQuery = "";
     }
   });
 
   // Listen to theme change to update Leaflet tiles
   window.addEventListener("theme-change", () => {
     updateMapTheme();
+  });
+
+  // Listen to language change to update dynamic strings
+  window.addEventListener("lang-change", () => {
+    if (loadedLookupData) {
+      renderLookupData(loadedLookupData);
+    } else if (activeQuery) {
+      renderErrorState("");
+    }
   });
 });

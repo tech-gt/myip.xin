@@ -14,6 +14,7 @@
     })();
   </script>
   <script type="module" src="/src/js/theme.js"></script>
+  <script type="module" src="/src/js/i18n.js"></script>
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="/src/css/main.css">
@@ -30,13 +31,13 @@
       </a>
       <nav>
         <ul class="nav-links">
-          <li><a href="/">我的 IP</a></li>
-          <li><a href="/lookup.html">IP 查询</a></li>
-          <li><a href="/dns.html">DNS 查询</a></li>
-          <li><a href="/whois.html" class="active">Whois 查询</a></li>
-          <li><a href="/about.html">关于</a></li>
+          <li><a href="/" data-i18n="nav_my_ip">我的 IP</a></li>
+          <li><a href="/lookup.html" data-i18n="nav_ip_lookup">IP 查询</a></li>
+          <li><a href="/dns.html" data-i18n="nav_dns_lookup">DNS 查询</a></li>
+          <li><a href="/whois.html" class="active" data-i18n="nav_whois_lookup">Whois 查询</a></li>
+          <li><a href="/about.html" data-i18n="nav_about">关于</a></li>
           <li>
-            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme" title="切换主题">
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme" title="切换主题" data-i18n-title="nav_theme_title">
               <!-- Sun Icon -->
               <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="4"></circle>
@@ -62,8 +63,8 @@
 
   <!-- Main Content -->
   <main class="container">
-    <h1>Whois 注册信息查询</h1>
-    <p style="margin-bottom: 2rem;">查询指定域名或 IP 的注册所有权、注册商、创建与到期时间等 Whois 原始记录。底层采用现代 RDAP 协议进行实时获取。</p>
+    <h1 data-i18n="whois_title">Whois 注册信息查询</h1>
+    <p style="margin-bottom: 2rem;" data-i18n="whois_desc">查询指定域名或 IP 的注册所有权、注册商、创建与到期时间等 Whois 原始记录。底层采用现代 RDAP 协议进行实时获取。</p>
 
     <!-- Search Section -->
     <div class="tool-search-container">
@@ -74,6 +75,7 @@
             id="whois-query" 
             class="form-control" 
             placeholder="请输入域名 (如: google.com) 或 IP 地址" 
+            data-i18n-placeholder="whois_placeholder"
             required 
             autofocus
             autocomplete="off"
@@ -82,7 +84,7 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-            查询
+            <span data-i18n="whois_btn">查询</span>
           </button>
         </div>
       </form>
@@ -92,40 +94,40 @@
     <div id="whois-results-wrapper" style="display: none; position: relative; min-height: 200px;">
       <div id="whois-loader" class="loader-overlay" style="display: none;">
         <div class="spinner"></div>
-        <p>正在获取 Whois 记录中...</p>
+        <p data-i18n="whois_loader">正在获取 Whois 记录中...</p>
       </div>
 
       <!-- Core Info Card -->
       <div class="card-glass info-card" style="margin-bottom: 1.5rem;">
-        <h3>基本所有权摘要</h3>
+        <h3 data-i18n="whois_summary_title">基本所有权摘要</h3>
         <table class="info-table" style="text-align: left;">
           <tbody>
             <tr>
-              <th style="width: 30%; text-align: left;">域名 / 资源</th>
+              <th style="width: 30%; text-align: left;" data-i18n="whois_col_name">域名 / 资源</th>
               <td id="whois-val-name" style="text-align: right;">...</td>
             </tr>
             <tr>
-              <th style="width: 30%; text-align: left;">注册商 (Registrar)</th>
+              <th style="width: 30%; text-align: left;" data-i18n="whois_col_registrar">注册商 (Registrar)</th>
               <td id="whois-val-registrar" style="text-align: right;">...</td>
             </tr>
             <tr>
-              <th style="width: 30%; text-align: left;">创建时间 (Created At)</th>
+              <th style="width: 30%; text-align: left;" data-i18n="whois_col_created">创建时间 (Created At)</th>
               <td id="whois-val-created" style="text-align: right;">...</td>
             </tr>
             <tr>
-              <th style="width: 30%; text-align: left;">更新时间 (Updated At)</th>
+              <th style="width: 30%; text-align: left;" data-i18n="whois_col_updated">更新时间 (Updated At)</th>
               <td id="whois-val-updated" style="text-align: right;">...</td>
             </tr>
             <tr>
-              <th style="width: 30%; text-align: left;">过期时间 (Expires At)</th>
+              <th style="width: 30%; text-align: left;" data-i18n="whois_col_expires">过期时间 (Expires At)</th>
               <td id="whois-val-expires" style="text-align: right;">...</td>
             </tr>
             <tr>
-              <th style="width: 30%; text-align: left;">DNS 服务器</th>
+              <th style="width: 30%; text-align: left;" data-i18n="whois_col_ns">DNS 服务器</th>
               <td id="whois-val-ns" style="text-align: right;">...</td>
             </tr>
             <tr>
-              <th style="width: 30%; text-align: left;">状态 (Status)</th>
+              <th style="width: 30%; text-align: left;" data-i18n="whois_col_status">状态 (Status)</th>
               <td id="whois-val-status" style="text-align: right;">...</td>
             </tr>
           </tbody>
@@ -135,14 +137,14 @@
       <!-- Raw Log Card -->
       <div class="card-glass raw-whois-card">
         <div class="raw-whois-title">
-          <h3>原始 RDAP / WHOIS 记录</h3>
-          <button id="btn-copy-raw" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">一键复制</button>
+          <h3 data-i18n="whois_raw_title">原始 RDAP / WHOIS 记录</h3>
+          <button id="btn-copy-raw" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" data-i18n="whois_copy_btn">一键复制</button>
         </div>
-        <pre id="raw-whois-content" class="raw-whois-container">加载中...</pre>
+        <pre id="raw-whois-content" class="raw-whois-container" data-i18n="whois_loading_raw">加载中...</pre>
       </div>
     </div>
     
-    <div id="whois-empty" style="text-align: center; padding: 4rem 0; color: var(--text-muted);" class="card-glass">
+    <div id="whois-empty" style="text-align: center; padding: 4rem 0; color: var(--text-muted);" class="card-glass" data-i18n="whois_empty">
       暂无查询结果，请在上方输入需要查询的域名或 IP 地址并点击“查询”按钮。
     </div>
   </main>
@@ -151,14 +153,14 @@
   <footer>
     <div class="container footer-content">
       <div>
-        &copy; 2026 myip.xin. 保留所有权利。
+        &copy; 2026 myip.xin. <span data-i18n="footer_copy_text">保留所有权利。</span>
       </div>
       <div class="footer-links">
-        <a href="/">我的 IP</a>
-        <a href="/lookup.html">IP 查询</a>
-        <a href="/dns.html">DNS Lookup</a>
-        <a href="/whois.html">Whois</a>
-        <a href="/about.html">关于</a>
+        <a href="/" data-i18n="nav_my_ip">我的 IP</a>
+        <a href="/lookup.html" data-i18n="nav_ip_lookup">IP 查询</a>
+        <a href="/dns.html" data-i18n="nav_dns_lookup">DNS Lookup</a>
+        <a href="/whois.html" data-i18n="nav_whois_lookup">Whois</a>
+        <a href="/about.html" data-i18n="nav_about">关于</a>
       </div>
     </div>
   </footer>

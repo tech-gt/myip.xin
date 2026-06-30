@@ -18,7 +18,7 @@ export async function copyToClipboard(text) {
   try {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       await navigator.clipboard.writeText(text);
-      showToast("复制成功！");
+      showToast(window.i18n ? window.i18n.t("toast_copy_success") : "复制成功！");
     } else {
       // Fallback
       const textarea = document.createElement("textarea");
@@ -28,11 +28,11 @@ export async function copyToClipboard(text) {
       textarea.select();
       document.execCommand("copy");
       document.body.removeChild(textarea);
-      showToast("复制成功！");
+      showToast(window.i18n ? window.i18n.t("toast_copy_success") : "复制成功！");
     }
   } catch (err) {
     console.error("Copy failed:", err);
-    showToast("复制失败，请手动选择复制。");
+    showToast(window.i18n ? window.i18n.t("toast_copy_failed") : "复制失败，请手动选择复制。");
   }
 }
 

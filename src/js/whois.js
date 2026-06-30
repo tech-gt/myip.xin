@@ -10,6 +10,52 @@ document.addEventListener("DOMContentLoaded", () => {
   const rawContainer = document.getElementById("raw-whois-content");
 
   let rawJsonDataStr = "";
+  let loadedWhoisData = null;
+  let lastQueryErrorMsg = "";
+
+  function renderWhoisData(data) {
+    if (!data) return;
+
+    const unknownVal = window.i18n.t("unknown_value");
+
+    // 1. Populate summary fields
+    document.getElementById("whois-val-name").textContent = data.name || queryInput.value;
+    document.getElementById("whois-val-registrar").textContent = data.registrar || unknownVal;
+    
+    // Formatting Dates
+    document.getElementById("whois-val-created").textContent = data.events?.created ? formatDate(data.events.created) : window.i18n.t("whois_val_unopened");
+    document.getElementById("whois-val-updated").textContent = data.events?.updated ? formatDate(data.events.updated) : window.i18n.t("whois_val_unopened");
+    document.getElementById("whois-val-expires").textContent = data.events?.expires ? formatDate(data.events.expires) : window.i18n.t("whois_val_unopened");
+    
+    // Name servers
+    if (data.nameservers && data.nameservers.length > 0) {
+      document.getElementById("whois-val-ns").innerHTML = data.nameservers.map(ns => `<code>${ns}</code>`).join(" ");
+    } else {
+      document.getElementById("whois-val-ns").textContent = window.i18n.t("whois_ns_empty");
+    }
+
+    // Status
+    if (data.status && data.status.length > 0) {
+      document.getElementById("whois-val-status").innerHTML = data.status.map(st => `<span class="dns-badge" style="margin-right:0.25rem;">${st}</span>`).join("");
+    } else {
+      document.getElementById("whois-val-status").textContent = window.i18n.t("whois_status_unknown");
+    }
+
+    // 2. Prettify raw JSON for presentation
+    rawJsonDataStr = JSON.stringify(data.raw, null, 2);
+    rawContainer.textContent = rawJsonDataStr;
+  }
+
+  function renderErrorState(errorMessage) {
+    document.getElementById("whois-val-name").textContent = window.i18n.t("whois_failed_field");
+    document.getElementById("whois-val-registrar").textContent = "-";
+    document.getElementById("whois-val-created").textContent = "-";
+    document.getElementById("whois-val-updated").textContent = "-";
+    document.getElementById("whois-val-expires").textContent = "-";
+    document.getElementById("whois-val-ns").textContent = "-";
+    document.getElementById("whois-val-status").textContent = "-";
+    rawContainer.textContent = `${window.i18n.t("whois_failed_raw")}${errorMessage}`;
+  }
 
   // Perform WHOIS RDAP query
   async function performWhoisQuery(query) {
@@ -20,64 +66,35 @@ document.addEventListener("DOMContentLoaded", () => {
     resultsWrapper.style.display = "block";
     emptyPlaceholder.style.display = "none";
     
+    const loadingText = window.i18n.t("whois_loading_data");
     // Clear old data
-    document.getElementById("whois-val-name").textContent = "正在获取...";
-    document.getElementById("whois-val-registrar").textContent = "正在获取...";
-    document.getElementById("whois-val-created").textContent = "正在获取...";
-    document.getElementById("whois-val-updated").textContent = "正在获取...";
-    document.getElementById("whois-val-expires").textContent = "正在获取...";
-    document.getElementById("whois-val-ns").textContent = "正在获取...";
-    document.getElementById("whois-val-status").textContent = "正在获取...";
-    rawContainer.textContent = "正在加载原始数据...";
+    document.getElementById("whois-val-name").textContent = loadingText;
+    document.getElementById("whois-val-registrar").textContent = loadingText;
+    document.getElementById("whois-val-created").textContent = loadingText;
+    document.getElementById("whois-val-updated").textContent = loadingText;
+    document.getElementById("whois-val-expires").textContent = loadingText;
+    document.getElementById("whois-val-ns").textContent = loadingText;
+    document.getElementById("whois-val-status").textContent = loadingText;
+    rawContainer.textContent = window.i18n.t("whois_loading_raw");
 
     try {
       const response = await fetch(`/api/whois?query=${encodeURIComponent(query)}`);
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        throw new Error(data.message || "获取 Whois 数据失败");
+        throw new Error(data.message || window.i18n.t("whois_failed_toast"));
       }
 
-      // 1. Populate summary fields
-      document.getElementById("whois-val-name").textContent = data.name || query;
-      document.getElementById("whois-val-registrar").textContent = data.registrar || "未知";
-      
-      // Formatting Dates
-      document.getElementById("whois-val-created").textContent = data.events?.created ? formatDate(data.events.created) : "未公开";
-      document.getElementById("whois-val-updated").textContent = data.events?.updated ? formatDate(data.events.updated) : "未公开";
-      document.getElementById("whois-val-expires").textContent = data.events?.expires ? formatDate(data.events.expires) : "未公开";
-      
-      // Name servers
-      if (data.nameservers && data.nameservers.length > 0) {
-        document.getElementById("whois-val-ns").innerHTML = data.nameservers.map(ns => `<code>${ns}</code>`).join(" ");
-      } else {
-        document.getElementById("whois-val-ns").textContent = "无或未公开";
-      }
-
-      // Status
-      if (data.status && data.status.length > 0) {
-        document.getElementById("whois-val-status").innerHTML = data.status.map(st => `<span class="dns-badge" style="margin-right:0.25rem;">${st}</span>`).join("");
-      } else {
-        document.getElementById("whois-val-status").textContent = "未知";
-      }
-
-      // 2. Prettify raw JSON for presentation
-      rawJsonDataStr = JSON.stringify(data.raw, null, 2);
-      rawContainer.textContent = rawJsonDataStr;
+      loadedWhoisData = data;
+      lastQueryErrorMsg = "";
+      renderWhoisData(data);
 
     } catch (error) {
       console.error("Whois error:", error);
-      showToast(error.message || "获取 Whois 失败");
-      
-      // Update displays to show failure
-      document.getElementById("whois-val-name").textContent = "获取失败";
-      document.getElementById("whois-val-registrar").textContent = "-";
-      document.getElementById("whois-val-created").textContent = "-";
-      document.getElementById("whois-val-updated").textContent = "-";
-      document.getElementById("whois-val-expires").textContent = "-";
-      document.getElementById("whois-val-ns").textContent = "-";
-      document.getElementById("whois-val-status").textContent = "-";
-      rawContainer.textContent = `无法加载原始数据: ${error.message}`;
+      showToast(error.message || window.i18n.t("whois_failed_toast"));
+      loadedWhoisData = null;
+      lastQueryErrorMsg = error.message;
+      renderErrorState(error.message);
     } finally {
       loader.style.opacity = "0";
       setTimeout(() => {
@@ -140,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (rawJsonDataStr) {
       copyToClipboard(rawJsonDataStr);
     } else {
-      showToast("没有可复制的数据");
+      showToast(window.i18n.t("whois_no_data_copy"));
     }
   });
 
@@ -156,6 +173,17 @@ document.addEventListener("DOMContentLoaded", () => {
       queryInput.value = "";
       resultsWrapper.style.display = "none";
       emptyPlaceholder.style.display = "block";
+      loadedWhoisData = null;
+      lastQueryErrorMsg = "";
+    }
+  });
+
+  // Handle language change for dynamic elements
+  window.addEventListener("lang-change", () => {
+    if (loadedWhoisData) {
+      renderWhoisData(loadedWhoisData);
+    } else if (lastQueryErrorMsg) {
+      renderErrorState(lastQueryErrorMsg);
     }
   });
 });
