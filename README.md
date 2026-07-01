@@ -1,5 +1,7 @@
 # myip.xin - What Is My IP Address & IP Geolocation Lookup Tool
 
+🌐 **English** | 🇨🇳 **[简体中文](README_CN.md)** | 🇷🇺 **[Русский](README_RU.md)**
+
 [![Deploy Status](https://img.shields.io/badge/Deployed%20on-Cloudflare%20Pages-orange?logo=cloudflare)](https://myip.xin)
 [![CLI Friendly](https://img.shields.io/badge/CLI-Friendly-brightgreen?logo=gnuterminal)](https://myip.xin)
 
