@@ -15,7 +15,7 @@ export async function onRequest(context) {
     }
     
     // For local development
-    if ((ip === "127.0.0.1" || ip === "::1") && !request.headers.get("CF-Connecting-IP")) {
+    if (ip === "127.0.0.1" || ip === "::1") {
       try {
         const ipResponse = await fetch("https://api.ipify.org?format=json");
         if (ipResponse.ok) {
