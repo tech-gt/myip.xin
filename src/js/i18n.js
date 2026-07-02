@@ -12,7 +12,7 @@ export const TRANSLATIONS = {
     footer_copy_text: "保留所有权利。",
     
     // index.html
-    title_index: "What is my IP address? | MyIP - 我的 IP 地址查询工具",
+    title_index: "MyIP - 专业的 IP 地址查询与网络诊断工具 | myip.xin",
     meta_desc_index: "快速查询您当前的公网 IP 地址 (IPv4 / IPv6)，查看详细地理位置、ASN、运营商等网络信息。支持地图可视化，无广告无追踪。",
     my_ip_is: "您的公网 IP 地址是",
     loading_ip: "正在获取中...",
@@ -44,7 +44,7 @@ export const TRANSLATIONS = {
     feature_whois_btn: "Whois 查询 &rarr;",
     
     // lookup.html
-    title_lookup: "IP & Domain Lookup | MyIP - 任意 IP 地理位置与 ASN 查询",
+    title_lookup: "IP 地址查询 | MyIP - 任意 IP 与域名地理位置定位",
     meta_desc_lookup: "输入任何 IPv4/IPv6 地址或域名，查询其经纬度、国家代码、ASN 归属组织、ISP 及具体地理位置。支持地图定位，数据实时准确。",
     lookup_title: "IP / 域名地理位置查询",
     lookup_desc: "查询任意公网 IP 地址或解析特定域名，获取其所在的国家、城市、经纬度、ASN 及 ISP 信息。",
@@ -58,7 +58,7 @@ export const TRANSLATIONS = {
     map_popup_query: "查询目标",
     
     // dns.html
-    title_dns: "DNS Lookup | MyIP - 域名 DNS 记录实时查询工具",
+    title_dns: "DNS 查询 | MyIP - 域名 DNS 解析记录实时查询",
     meta_desc_dns: "输入任意域名，快速查询 A、AAAA、CNAME、MX、TXT、NS 等各种类型的 DNS 解析记录。支持一键快速检索。",
     dns_title: "DNS Lookup 记录查询",
     dns_desc: "查询特定域名的 DNS 解析记录。支持常用的 A、AAAA、CNAME、MX、TXT 及 NS 记录解析。",
@@ -85,7 +85,7 @@ export const TRANSLATIONS = {
     dns_failed_desc: "解析域名出错，请确认域名拼写是否正确。",
     
     // whois.html
-    title_whois: "Whois Lookup | MyIP - 域名及 IP 注册所有权查询工具",
+    title_whois: "Whois 查询 | MyIP - 域名与 IP 注册所有权信息查询",
     meta_desc_whois: "输入任何域名或 IP 地址，快速查询其 WHOIS 信息，包含注册商、注册时间、过期时间、DNS 服务器及注册人状态。支持原生 RDAP 协议解析。",
     whois_title: "Whois 注册信息查询",
     whois_desc: "查询指定域名或 IP 的注册所有权、注册商、创建与到期时间等 Whois 原始记录。底层采用现代 RDAP 协议进行实时获取。",
@@ -114,7 +114,7 @@ export const TRANSLATIONS = {
     whois_val_unopened: "未公开",
     
     // about.html
-    title_about: "了解 MyIP | MyIP - 极速、免费、保护隐私的公网 IP 网络工具",
+    title_about: "关于 MyIP | MyIP - 极速、安全、保护隐私的公网 IP 工具",
     meta_desc_about: "了解 myip.xin 的工作原理、数据来源以及我们对您隐私的承诺。完全开源，无广告，不保存任何查询日志。",
     about_title: "关于 myip.xin (MyIP)",
     about_desc: "myip.xin 是一个现代、极速且保护隐私的公网 IP 地址和网络诊断工具网站。我们致力于为您提供最干净、最高效的查询体验。",
@@ -155,8 +155,8 @@ export const TRANSLATIONS = {
     footer_copy_text: "All rights reserved.",
     
     // index.html
-    title_index: "What is my IP address? | MyIP - My IP Address Lookup Tool",
-    meta_desc_index: "Quickly lookup your current public IP address (IPv4 / / IPv6), view detailed geographical location, ASN, ISP, and other network info. Supports map visualization, ad-free and tracker-free.",
+    title_index: "MyIP - Professional IP Address Lookup & Network Tools | myip.xin",
+    meta_desc_index: "Quickly lookup your current public IP address (IPv4 / IPv6), view detailed geographical location, ASN, ISP, and other network info. Supports map visualization, ad-free and tracker-free.",
     my_ip_is: "Your public IP address is",
     loading_ip: "Fetching...",
     loading_geo: "Locating geographical info...",
@@ -187,7 +187,7 @@ export const TRANSLATIONS = {
     feature_whois_btn: "Whois Lookup &rarr;",
     
     // lookup.html
-    title_lookup: "IP & Domain Lookup | MyIP - Any IP Geolocation & ASN Query",
+    title_lookup: "IP Lookup | MyIP - IP Geolocation & ASN Query",
     meta_desc_lookup: "Enter any IPv4/IPv6 address or domain to query its coordinates, country code, ASN, ISP, and exact location. Map location supported.",
     lookup_title: "IP / Domain Geolocation Lookup",
     lookup_desc: "Query any public IP address or resolve a domain to get its country, city, coordinates, ASN, and ISP details.",
@@ -201,7 +201,7 @@ export const TRANSLATIONS = {
     map_popup_query: "Query Target",
     
     // dns.html
-    title_dns: "DNS Lookup | MyIP - Real-time Domain DNS Record Query",
+    title_dns: "DNS Lookup | MyIP - Real-time Domain DNS Records Resolver",
     meta_desc_dns: "Enter any domain to quickly query various DNS records including A, AAAA, CNAME, MX, TXT, NS. Quick search supported.",
     dns_title: "DNS Lookup",
     dns_desc: "Query DNS resolution records for specific domains. Supports common A, AAAA, CNAME, MX, TXT, and NS records.",
@@ -228,7 +228,7 @@ export const TRANSLATIONS = {
     dns_failed_desc: "Error resolving domain. Please verify spelling.",
     
     // whois.html
-    title_whois: "Whois Lookup | MyIP - Domain & IP Registration Ownership Tool",
+    title_whois: "Whois Lookup | MyIP - Domain & IP Ownership Information",
     meta_desc_whois: "Enter any domain or IP to query WHOIS records including registrar, creation, update, expiration dates, DNS servers, and registration status.",
     whois_title: "Whois Registration Query",
     whois_desc: "Query ownership, registrar, creation, and expiration dates for any domain or IP. Powered by the modern RDAP protocol.",
@@ -257,7 +257,7 @@ export const TRANSLATIONS = {
     whois_val_unopened: "Private / Not disclosed",
     
     // about.html
-    title_about: "About MyIP | MyIP - Fast, Free, Privacy-focused Public IP Tools",
+    title_about: "About MyIP | MyIP - Fast, Secure, Privacy-focused IP Tool",
     meta_desc_about: "Learn how myip.xin works, its data sources, and our commitment to your privacy. Completely open source, ad-free, no query logging.",
     about_title: "About myip.xin (MyIP)",
     about_desc: "myip.xin is a modern, fast, and privacy-protecting public IP address and network diagnostics site. We aim to provide the cleanest and most efficient experience.",
@@ -298,7 +298,7 @@ export const TRANSLATIONS = {
     footer_copy_text: "Все права защищены.",
     
     // index.html
-    title_index: "Какой у меня IP адрес? | MyIP - Узнать свой IP адрес",
+    title_index: "MyIP - Профессиональный поиск IP-адресов и сетевые инструменты | myip.xin",
     meta_desc_index: "Быстро узнайте свой текущий публичный IP-адрес (IPv4 / IPv6), подробное географическое положение, ASN, провайдера и другие параметры сети. Визуализация на карте, без рекламы и слежки.",
     my_ip_is: "Ваш публичный IP-адрес",
     loading_ip: "Получение...",
@@ -330,7 +330,7 @@ export const TRANSLATIONS = {
     feature_whois_btn: "Поиск Whois &rarr;",
     
     // lookup.html
-    title_lookup: "Поиск IP и доменов | MyIP - Информация о геолокации IP и ASN",
+    title_lookup: "Поиск IP | MyIP - Геолокация IP и запрос ASN",
     meta_desc_lookup: "Введите любой IPv4/IPv6-адрес или домен для получения его координат, кода страны, ASN, провайдера и точного местоположения.",
     lookup_title: "Поиск геолокации IP / домена",
     lookup_desc: "Узнайте страну, город, координаты, ASN и провайдера для любого публичного IP-адреса или домена.",
@@ -344,7 +344,7 @@ export const TRANSLATIONS = {
     map_popup_query: "Цель запроса",
     
     // dns.html
-    title_dns: "Поиск DNS | MyIP - Записи DNS доменов в реальном времени",
+    title_dns: "Поиск DNS | MyIP - DNS-записи доменов в реальном времени",
     meta_desc_dns: "Введите любой домен для быстрого поиска DNS-записей, включая A, AAAA, CNAME, MX, TXT, NS. Поддерживается быстрый поиск.",
     dns_title: "Поиск DNS",
     dns_desc: "Запрос записей DNS для указанного домена. Поддерживаются распространенные типы записей: A, AAAA, CNAME, MX, TXT и NS.",
@@ -400,7 +400,7 @@ export const TRANSLATIONS = {
     whois_val_unopened: "Скрыто / Не раскрыто",
     
     // about.html
-    title_about: "О MyIP | MyIP - Быстрые, бесплатные и конфиденциальные сетевые инструменты",
+    title_about: "О MyIP | MyIP - Быстрый и безопасный сетевой инструмент",
     meta_desc_about: "Узнайте, как работает myip.xin, об источниках данных и наших обязательствах по конфиденциальности. Полный открытый код, без рекламы.",
     about_title: "О проекте myip.xin (MyIP)",
     about_desc: "myip.xin — это современный, сверхбыстрый и защищающий конфиденциальность веб-сайт для определения IP-адресов и сетевой диагностики.",
@@ -490,20 +490,28 @@ export function updateDOM(lang) {
     }
   });
 
-  // Translate page title
+  // Translate page title & Open Graph title
   const pageName = getPageName();
   const titleKey = `title_${pageName}`;
   const titleTranslation = getTranslation(titleKey, lang);
   if (titleTranslation && titleTranslation !== titleKey) {
     document.title = titleTranslation;
+    const ogTitleEl = document.querySelector('meta[property="og:title"]');
+    if (ogTitleEl) {
+      ogTitleEl.setAttribute("content", titleTranslation);
+    }
   }
 
-  // Translate meta description
+  // Translate meta description & Open Graph description
   const metaKey = `meta_desc_${pageName}`;
   const metaTranslation = getTranslation(metaKey, lang);
   const metaDescEl = document.querySelector('meta[name="description"]');
   if (metaTranslation && metaDescEl && metaTranslation !== metaKey) {
     metaDescEl.setAttribute("content", metaTranslation);
+    const ogDescEl = document.querySelector('meta[property="og:description"]');
+    if (ogDescEl) {
+      ogDescEl.setAttribute("content", metaTranslation);
+    }
   }
 }
 
